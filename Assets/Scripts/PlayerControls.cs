@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    
     //Game manager object
     [Header("Game Controller Object for controlling the game")]
     public GameController gameController;
@@ -34,7 +35,21 @@ public class PlayerControls : MonoBehaviour
         {
             //The bird will float up on the y axis
             //and float back down on y axis
-            rb.velocity = Vector2.up * velocity;
+             rb.velocity = Vector2.up * velocity;
+        }
+    }
+
+
+    //Function where the player collides with a object
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "HighSpike"
+            || collision.gameObject.tag == "LowSpike"
+            || collision.gameObject.tag == "Ground")
+        {
+            //Game Over function is called from the game manager
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+            
         }
     }
 }
